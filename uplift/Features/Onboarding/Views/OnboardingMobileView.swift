@@ -38,7 +38,7 @@ struct OnboardingMobileView: View {
                     .foregroundColor(.gray)
                 
                 NavigationLink(destination:VerificationView(phoneNumber:
-                                                                $viewModel.phoneNumber)) {
+                                                                $viewModel.phoneNumber, nFields:6)) {
                     Text("Send verification code")
                         .font(.headline)
                         .foregroundColor(.white)
