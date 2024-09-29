@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LandingView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing:40) {
                 Image("uplift_logo")
                     .resizable()
