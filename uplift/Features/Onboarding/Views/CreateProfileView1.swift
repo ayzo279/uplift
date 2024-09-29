@@ -24,7 +24,8 @@ struct CreateProfileView1: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var dob: [String] = ["", "",""]
-    
+    @State private var defaultOption: String = "MALE"
+    @State private var genderOptions: [String] = ["MALE","FEMALE","NONBINARY"]
     var body: some View {
         VStack(alignment: .leading, spacing: 80){
             Text("Let's create your profile.")
@@ -118,11 +119,11 @@ struct CreateProfileView1: View {
                         }
                     }
                 }
-                VStack {
+                VStack(alignment: .leading) {
                     Text("GENDER").font(.footnote)
                         .foregroundColor(Color.orange)
                         .bold()
-                    
+                    ToggleSelectorView(selectedOption: $defaultOption, options:genderOptions)
                 }
             }
         }

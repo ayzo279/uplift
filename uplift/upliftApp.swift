@@ -12,6 +12,8 @@ struct upliftApp: App {
     var body: some Scene {
         WindowGroup {
             LandingView()
+                .foregroundColor(Color("Charcoal"))
+                .background(Color("White"))
         }
     }
 }
