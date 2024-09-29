@@ -46,7 +46,7 @@ struct VerificationView: View {
                         }
                     ))
                     .keyboardType(.numberPad)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 15, height: 40)
                     .padding()
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(5)
@@ -87,4 +87,9 @@ struct VerificationView: View {
             showAlert = true // Show alert if the code is incorrect
         }
     }
+}
+
+
+#Preview {
+    VerificationView(phoneNumber: .constant("2158085953"))
 }
