@@ -11,16 +11,20 @@ struct ProfileCreatorView: View {
     @State private var currIndex: Int = 0
        
     var body: some View {
-        VStack(alignment:.leading, spacing: 40){
-            Button(action:{
+        VStack(spacing: 40){
+            HStack {
                 if currIndex > 0 {
-                    currIndex -= 1
+                    Button(action: {
+                        currIndex -= 1
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(Color("Charcoal"))
+                    }
                 }
-            }){
-                Image(systemName:"arrow.left")
-                    .foregroundColor(Color("Charcoal"))
-                    .padding(.leading, 40)
+                Spacer() // Ensures arrow stays on the left side
             }
+            .padding(.leading, 40) // Move padding to the container, not the button
+            
             VStack {
                 // Display the current subview based on currIndex
                 Group {
@@ -29,10 +33,10 @@ struct ProfileCreatorView: View {
                         CreateProfileView1()
                     case 1:
                         CreateProfileView2(index:$currIndex)
-                    case 2:
-                        CreateProfileView2(index:$currIndex)
-                    case 3:
-                        CreateProfileView2(index:$currIndex)
+//                    case 2:
+//                        CreateProfileView2(index:$currIndex)
+//                    case 3:
+//                        CreateProfileView2(index:$currIndex)
                     default:
                         CreateProfileView1() // Fallback
                     }
@@ -42,7 +46,7 @@ struct ProfileCreatorView: View {
                 ContinueButtonView(currIndex: $currIndex)
             }
         }
-        Spacer()
+//        Spacer()
     }
 }
 
