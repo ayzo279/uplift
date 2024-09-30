@@ -126,6 +126,7 @@ struct CreateProfileView1: View {
                     ToggleSelectorView(selectedOption: $defaultOption, options:genderOptions)
                 }
             }
+            Spacer()
         }
         .padding([.leading,.trailing], 40)
     }}

@@ -88,6 +88,7 @@ struct CreateProfileView2: View {
                     .bold()
                 ToggleSelectorView(selectedOption: $defaultOption, options:weightOptions)
             }
+            Spacer()
         }
         .padding([.leading,.trailing], 40)
     }
