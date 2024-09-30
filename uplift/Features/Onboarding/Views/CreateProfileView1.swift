@@ -46,7 +46,7 @@ struct CreateProfileView1: View {
                         Text("LAST NAME").font(.footnote)
                             .foregroundColor(Color.orange)
                             .bold()
-                        TextField("", text: $firstName)
+                        TextField("", text: $lastName)
                             .underlineTextField()
                         Text("Only your first name and last initial will be visible to other users.")
                             .font(.caption2)
