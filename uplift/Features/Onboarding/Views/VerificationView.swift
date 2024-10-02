@@ -61,7 +61,7 @@ struct VerificationView: View {
                     }
                 }
                 VStack(spacing:10){
-                    NavigationLink(destination: CreateProfileView1()){
+                    NavigationLink(destination: ProfileCreatorView()){
                         Text("Verify")
                             .font(.headline)
                             .frame(width:320, height: 28)
