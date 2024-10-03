@@ -9,14 +9,30 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        VStack{
+        VStack(spacing:0){
             HomeHeaderView()
-            ScrollView{
-                DailyProgressView()
+            ZStack{
+                ScrollView{
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width:.infinity, height: 4)
+                    DailyProgressView()
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width:.infinity, height: 4)
+                    ProgressChartView()
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width:.infinity, height: 4)
+                    FriendHistoryView()
+                }
+                .padding(.top, -10)
+                .padding(.bottom, 72)
+                TabBarView()
             }
-            TabBarView()
         }
         .navigationBarBackButtonHidden(true)
+        .background(Color("White"))
     }
 }
 

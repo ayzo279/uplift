@@ -14,7 +14,7 @@ struct HomeHeaderView: View {
                 Rectangle()
                     .fill(Color("White"))
                     .frame(height: 84)
-                    .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 8)
+                    .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y:5)
                 
                 HStack{
                     HStack{
@@ -46,6 +46,7 @@ struct HomeHeaderView: View {
             Spacer()
         }
         .frame(height: 84)
+        .background(Color("White"))
         Spacer()
     }
 }
