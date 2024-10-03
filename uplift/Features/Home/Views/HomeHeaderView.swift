@@ -46,6 +46,7 @@ struct HomeHeaderView: View {
             Spacer()
         }
         .frame(height: 84)
+        .background(Color("White"))
         Spacer()
     }
 }

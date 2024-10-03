@@ -28,11 +28,11 @@ struct TabBarView: View {
                     
                 Spacer()
                 
-                ZStack{
+                ZStack(alignment:.bottom){
                     Rectangle()
                         .fill(Color.white)
                         .frame(height: 72)
-                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: -8)
+                        .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: -5)
                     HStack{
                         TabBarButton(iconName: "house", tab: .home, tabName:"Home", selectedTab: $selectedTab)
                         TabBarButton(iconName: "person.2", tab:.social, tabName:"Social",selectedTab: $selectedTab)
@@ -43,7 +43,7 @@ struct TabBarView: View {
                     .padding(.horizontal)
                     .padding(.top, 8)
                     .frame(height: 72)
-                    .background(Color("white").shadow(radius:5))
+                    .background(Color("White"))
                 }
             }
 

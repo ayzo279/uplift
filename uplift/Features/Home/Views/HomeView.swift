@@ -11,26 +11,28 @@ struct HomeView: View {
     var body: some View {
         VStack(spacing:0){
             HomeHeaderView()
-            ScrollView{
-                Rectangle()
-                    .fill(Color("lightGray"))
-                    .frame(width:.infinity, height: 4)
-                DailyProgressView()
-                Rectangle()
-                    .fill(Color("lightGray"))
-                    .frame(width:.infinity, height: 4)
-                ProgressChartView()
-                Rectangle()
-                    .fill(Color("lightGray"))
-                    .frame(width:.infinity, height: 4)
+            ZStack{
+                ScrollView{
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width:.infinity, height: 4)
+                    DailyProgressView()
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width:.infinity, height: 4)
+                    ProgressChartView()
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width:.infinity, height: 4)
+                    FriendHistoryView()
+                }
+                .padding(.top, -10)
+                .padding(.bottom, 72)
+                TabBarView()
             }
-            .padding(.vertical, -10)
-            .frame(height: 600)
-            TabBarView()
         }
         .navigationBarBackButtonHidden(true)
         .background(Color("White"))
-        
     }
 }
 
