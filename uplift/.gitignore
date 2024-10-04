@@ -35,6 +35,5 @@ Carthage/Checkouts/
 *.userdatak
 
 # API Configuration files
-Info.plist
 workoutapi.xcconfig
 
