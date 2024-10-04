@@ -29,9 +29,22 @@
 		6043EE592CA24D8C00FCD473 /* upliftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = upliftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		60FF629D2CAF92FA00F359EE /* Exceptions for "uplift" folder in "uplift" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6043EE3E2CA24D8900FCD473 /* uplift */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6043EE412CA24D8900FCD473 /* uplift */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				60FF629D2CAF92FA00F359EE /* Exceptions for "uplift" folder in "uplift" target */,
+			);
 			path = uplift;
 			sourceTree = "<group>";
 		};
@@ -271,6 +284,8 @@
 /* Begin XCBuildConfiguration section */
 		6043EE612CA24D8C00FCD473 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 6043EE412CA24D8900FCD473 /* uplift */;
+			baseConfigurationReferenceRelativePath = workoutAPI.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -334,6 +349,8 @@
 		};
 		6043EE622CA24D8C00FCD473 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 6043EE412CA24D8900FCD473 /* uplift */;
+			baseConfigurationReferenceRelativePath = workoutAPI.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -398,6 +415,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"uplift/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = uplift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -426,6 +444,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"uplift/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = uplift/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
