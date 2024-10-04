@@ -1,0 +1,39 @@
+//
+//  .gitignore
+//  uplift
+//
+//  Created by Andy Zhuo on 10/3/24.
+//
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcworkspace
+*.xcconfig
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+# User-specific files
+*.swp
+*.swo
+*.DS_Store
+*.user
+*.userdatak
+
+# API Configuration files
+workoutapi.xcconfig
+
