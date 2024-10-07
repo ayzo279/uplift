@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
+    @ObservedObject var viewModel: HomeViewModel
+
     var body: some View {
         VStack{
+
             ZStack{
                 Rectangle()
                     .fill(Color("White"))
@@ -22,10 +25,10 @@ struct HomeHeaderView: View {
                             .stroke(Color("Orange"), lineWidth: 2)
                             .frame(width: 50, height: 50)
                             .overlay(
-                                Text("AB")
+                                Text("\(viewModel.firstName.prefix(1))\(viewModel.lastName.prefix(1))")
                                     .font(.title2)
                                     .foregroundColor(Color("Orange")))
-                        Text("Andrew B.")
+                        Text("\(viewModel.firstName) \(viewModel.lastName.prefix(1)).")
                             .font(.system(size:16))
                             .fontWeight(.medium)
                     }
@@ -51,6 +54,6 @@ struct HomeHeaderView: View {
     }
 }
 
-#Preview {
-    HomeHeaderView()
-}
+//#Preview {
+//    HomeHeaderView()
+//}

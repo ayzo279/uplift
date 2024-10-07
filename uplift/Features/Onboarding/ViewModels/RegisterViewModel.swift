@@ -24,6 +24,7 @@ class RegisterViewModel: ObservableObject {
     @Published var preferredWeightUnits: String = "LB"  // Default to "kg"
     
     @Published var registrationError: String? = nil
+    @Published var authenticationError: String? = nil
     @Published var isAuthenticated: Bool = false
 
     
@@ -48,6 +49,27 @@ class RegisterViewModel: ObservableObject {
             
             if let user = authResult?.user {
                 print("User registered successfully with email: \(user.email ?? "")")
+                self.isAuthenticated = true
+            }
+        }
+    }
+    
+    // Function to sign in user with email
+    func signInWithEmail() {
+        guard !email.isEmpty, !password.isEmpty else {
+            authenticationError = "Email and password cannot be empty."
+            return
+        }
+
+        // Firebase Auth call for sign-in
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                self.authenticationError = error.localizedDescription
+                return
+            }
+
+            if let user = authResult?.user {
+                print("User signed in successfully with email: \(user.email ?? "")")
                 self.isAuthenticated = true
             }
         }
