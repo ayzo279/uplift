@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ProfileCreatorView: View {
+    @ObservedObject var viewModel: RegisterViewModel
     @State private var currIndex: Int = 0
+    @State private var isFinished: Bool = false
        
     var body: some View {
         NavigationView{
@@ -36,15 +38,15 @@ struct ProfileCreatorView: View {
                     Group {
                         switch currIndex {
                         case 0:
-                            CreateProfileView1()
+                            CreateProfileView1(viewModel: viewModel)
                         case 1:
-                            CreateProfileView2(index:$currIndex)
+                            CreateProfileView2(index:$currIndex, viewModel: viewModel)
                         case 2:
                             CreateProfileView3()
                         case 3:
                             CreateProfileView4()
                         default:
-                            CreateProfileView1() // Fallback
+                            CreateProfileView1(viewModel: viewModel) // Fallback
                         }
                     }
                     .padding(.bottom, 80)
@@ -55,11 +57,21 @@ struct ProfileCreatorView: View {
                     else {
                         VStack(spacing: 4){
                             HStack(spacing:4){
-                                NavigationLink(destination: HomeView()){
-                                        Text("I'm all set!")
-                                            .font(.title2)
-                                            .bold()
-                                        Image(systemName: "chevron.right")
+                                NavigationLink(destination: HomeView(), isActive: $isFinished){
+                                    EmptyView()
+                                }
+                                    Button(action: {
+                                        viewModel.insertUserData()
+                                        isFinished = true
+                                    }) {
+                                        HStack {
+                                            Text("I'm all set!")
+                                                .font(.title2)
+                                                .bold()
+                                            Image(systemName: "chevron.right")
+                                        }
+                                        .foregroundColor(Color("Orange"))
+                                    }
                                 }
                                 .foregroundColor(Color("Orange"))
                             }
@@ -71,7 +83,6 @@ struct ProfileCreatorView: View {
                                 }
                             }
                         }
-                    }
                 }
             }
         }
@@ -80,5 +91,5 @@ struct ProfileCreatorView: View {
 }
 
 #Preview {
-    ProfileCreatorView()
+    ProfileCreatorView(viewModel: RegisterViewModel())
 }

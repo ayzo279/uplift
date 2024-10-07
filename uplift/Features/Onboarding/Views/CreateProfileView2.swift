@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CreateProfileView2: View {
     @Binding var index: Int
-    @State private var userWeight: String = ""
-    @State private var userHeight: [String] = ["",""]
-    @State private var defaultOption: String = "LB"
+    @ObservedObject var viewModel: RegisterViewModel
+    
     @State private var weightOptions: [String] = ["LB","KG"]
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 80){
             Text("Next some basic fitness info.")
                 .font(.title2)
@@ -27,7 +27,7 @@ struct CreateProfileView2: View {
                         .bold()
                     HStack(spacing:4){
                         VStack(alignment:.leading){
-                            TextField("", text: $userWeight)
+                            TextField("", value: $viewModel.weight, formatter: NumberFormatter())
                                 .keyboardType(.numberPad)
                                 .frame(width: 60)
                                 .multilineTextAlignment(.leading)
@@ -49,7 +49,7 @@ struct CreateProfileView2: View {
                         // Feet Field
                         HStack(spacing:4){
                             VStack(alignment:.leading){
-                                TextField("", text: $userHeight[0])
+                                TextField("", value: $viewModel.height[0], formatter: NumberFormatter())
                                     .keyboardType(.numberPad)
                                     .frame(width: 40)
                                     .multilineTextAlignment(.leading)
@@ -63,7 +63,7 @@ struct CreateProfileView2: View {
                         
                         HStack(spacing:4){
                             VStack(alignment:.leading){
-                                TextField("", text: $userHeight[1])
+                                TextField("", value: $viewModel.height[1], formatter: NumberFormatter())
                                     .keyboardType(.numberPad)
                                     .frame(width: 40)
                                     .multilineTextAlignment(.leading)
@@ -86,8 +86,9 @@ struct CreateProfileView2: View {
                 Text("PREFERRED UNIT OF WEIGHT").font(.footnote)
                     .foregroundColor(Color.orange)
                     .bold()
-                ToggleSelectorView(selectedOption: $defaultOption, options:weightOptions)
+                ToggleSelectorView(selectedOption: $viewModel.preferredWeightUnits, options:weightOptions)
             }
+
             Spacer()
         }
         .padding([.leading,.trailing], 40)
@@ -95,5 +96,5 @@ struct CreateProfileView2: View {
 }
 
 #Preview{
-    CreateProfileView2(index:.constant(1))
+    CreateProfileView2(index:.constant(1), viewModel: RegisterViewModel())
 }

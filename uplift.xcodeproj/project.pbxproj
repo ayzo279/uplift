@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		60FF656B2CB3704C00F359EE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 60FF656A2CB3704C00F359EE /* FirebaseAuth */; };
+		60FF656D2CB3704C00F359EE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 60FF656C2CB3704C00F359EE /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		6043EE502CA24D8C00FCD473 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +34,22 @@
 		6043EE592CA24D8C00FCD473 /* upliftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = upliftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		60FF64F82CAFA7BF00F359EE /* Exceptions for "uplift" folder in "uplift" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6043EE3E2CA24D8900FCD473 /* uplift */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6043EE412CA24D8900FCD473 /* uplift */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				60FF64F82CAFA7BF00F359EE /* Exceptions for "uplift" folder in "uplift" target */,
+			);
 			path = uplift;
 			sourceTree = "<group>";
 		};
@@ -52,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60FF656B2CB3704C00F359EE /* FirebaseAuth in Frameworks */,
+				60FF656D2CB3704C00F359EE /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +132,8 @@
 			);
 			name = uplift;
 			packageProductDependencies = (
+				60FF656A2CB3704C00F359EE /* FirebaseAuth */,
+				60FF656C2CB3704C00F359EE /* FirebaseFirestore */,
 			);
 			productName = uplift;
 			productReference = 6043EE3F2CA24D8900FCD473 /* uplift.app */;
@@ -195,6 +217,9 @@
 			);
 			mainGroup = 6043EE362CA24D8900FCD473;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				60FF65692CB3704C00F359EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6043EE402CA24D8900FCD473 /* Products */;
 			projectDirPath = "";
@@ -558,6 +583,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		60FF65692CB3704C00F359EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		60FF656A2CB3704C00F359EE /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60FF65692CB3704C00F359EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		60FF656C2CB3704C00F359EE /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60FF65692CB3704C00F359EE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6043EE372CA24D8900FCD473 /* Project object */;
 }

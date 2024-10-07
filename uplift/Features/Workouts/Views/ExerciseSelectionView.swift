@@ -16,7 +16,11 @@ struct SelectExercisesView: View {
             ForEach(viewModel.exercises.keys.sorted(), id:\.self) {category in
                 Text(category)
             }
+//            ForEach(viewModel.exercises["ABS"] ?? [], id:\.self){workout in
+//                Text(workout.name)
+//            }
         }
+        .padding(.horizontal, 24)
     }
 }
 

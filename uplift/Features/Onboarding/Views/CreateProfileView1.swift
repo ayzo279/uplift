@@ -21,10 +21,8 @@ extension View {
 }
 
 struct CreateProfileView1: View {
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
-    @State private var dob: [String] = ["", "",""]
-    @State private var defaultOption: String = "MALE"
+    @ObservedObject var viewModel: RegisterViewModel
+    
     @State private var genderOptions: [String] = ["MALE","FEMALE","NONBINARY"]
     var body: some View {
         VStack(alignment: .leading, spacing: 80){
@@ -37,7 +35,7 @@ struct CreateProfileView1: View {
                         Text("FIRST NAME").font(.footnote)
                             .foregroundColor(Color.orange)
                             .bold()
-                        TextField("", text: $firstName)
+                        TextField("", text: $viewModel.firstName)
                             .underlineTextField()
                     }
                 }
@@ -46,7 +44,7 @@ struct CreateProfileView1: View {
                         Text("LAST NAME").font(.footnote)
                             .foregroundColor(Color.orange)
                             .bold()
-                        TextField("", text: $lastName)
+                        TextField("", text: $viewModel.lastName)
                             .underlineTextField()
                         Text("Only your first name and last initial will be visible to other users.")
                             .font(.caption2)
@@ -63,14 +61,14 @@ struct CreateProfileView1: View {
                     HStack(spacing: 10) {
                         // Month TextField
                         VStack(spacing:4){
-                            TextField("MM", text: $dob[0])
+                            TextField("MM", text: $viewModel.dob[0])
                                 .keyboardType(.numberPad)
                                 .frame(width: 40)
                                 .cornerRadius(5)
                                 .multilineTextAlignment(.center)
-                                .onChange(of: dob[0]) { newValue in
+                                .onChange(of: viewModel.dob[0]) { newValue in
                                     if newValue.count > 2 {
-                                        dob[0] = String(newValue.prefix(2))
+                                        viewModel.dob[0] = String(newValue.prefix(2))
                                     }
                                 }
                             Rectangle()
@@ -83,14 +81,14 @@ struct CreateProfileView1: View {
                         
                         // Day TextField
                         VStack(spacing:4){
-                            TextField("DD", text: $dob[1])
+                            TextField("DD", text: $viewModel.dob[1])
                                 .keyboardType(.numberPad)
                                 .frame(width: 40)
                                 .cornerRadius(5)
                                 .multilineTextAlignment(.center)
-                                .onChange(of: dob[1]) { newValue in
+                                .onChange(of: viewModel.dob[1]) { newValue in
                                     if newValue.count > 2 {
-                                        dob[1] = String(newValue.prefix(2))
+                                        viewModel.dob[1] = String(newValue.prefix(2))
                                     }
                                 }
                             Rectangle()
@@ -103,13 +101,13 @@ struct CreateProfileView1: View {
                         
                         // Year TextField
                         VStack(alignment: .leading, spacing:4){
-                            TextField("YYYY", text: $dob[2])
+                            TextField("YYYY", text: $viewModel.dob[2])
                                 .keyboardType(.numberPad)
                                 .frame(width: 120)
                                 .multilineTextAlignment(.leading)
-                                .onChange(of: dob[2]) { newValue in
+                                .onChange(of: viewModel.dob[2]) { newValue in
                                     if newValue.count > 4 {
-                                        dob[2] = String(newValue.prefix(4))
+                                        viewModel.dob[2] = String(newValue.prefix(4))
                                     }
                                 }
                                 .padding(.leading, 4)
@@ -123,8 +121,9 @@ struct CreateProfileView1: View {
                     Text("GENDER").font(.footnote)
                         .foregroundColor(Color.orange)
                         .bold()
-                    ToggleSelectorView(selectedOption: $defaultOption, options:genderOptions)
+                    ToggleSelectorView(selectedOption: $viewModel.gender, options:genderOptions)
                 }
+                
             }
             Spacer()
         }
@@ -132,5 +131,5 @@ struct CreateProfileView1: View {
     }}
 
 #Preview {
-    CreateProfileView1()
+    CreateProfileView1(viewModel: RegisterViewModel())
 }

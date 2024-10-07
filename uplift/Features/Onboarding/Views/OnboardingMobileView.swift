@@ -46,14 +46,13 @@ struct OnboardingMobileView: View {
                         .background(Color.orange)
                         .cornerRadius(10)
                 }
-                Button(action: {
-                    viewModel.switchToEmailRegistration()
-                }) {
+                NavigationLink(destination: EmailRegistrationView(viewModel: RegisterViewModel())) {
                     Text("Register with email instead")
                         .font(.footnote)
                         .foregroundColor(.black)
                 }
                 .padding(.top, 10)
+                .navigationBarBackButtonHidden(true)
                 
                 Spacer()
             }
