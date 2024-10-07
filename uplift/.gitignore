@@ -37,7 +37,7 @@ Carthage/Checkouts/
 # API Configuration files
 workoutapi.xcconfig
 Info.plist
-GoogleService-info.plist
+GoogleService-Info.plist
 
 
 
