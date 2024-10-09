@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+
 
 class ProgramViewModel: ObservableObject {
     @Published var workoutProgram = WorkoutProgram(exercises: [], sets: [:])
@@ -25,10 +27,11 @@ class ProgramViewModel: ObservableObject {
     ]
     
     init() {
-        loadExercises() // Load exercises from the JSON file when initializing
+//        loadExercises() // Load exercises from the JSON file when initializing
 //        for category in self.categories.keys {
 //            fetchExercises(muscleGroup: category)
 //        }
+        loadExercises()
     }
     
     static let apiKey: String = {
@@ -39,68 +42,84 @@ class ProgramViewModel: ObservableObject {
     }()
     
     func loadExercises() {
-        // Get the URL for the workouts.json file in the app bundle
-        guard let fileURL = Bundle.main.url(forResource: "workouts", withExtension: "json") else {
-            print("workouts.json file not found in the app bundle.")
-            return
-        }
+        let db = Firestore.firestore()
 
-        do {
-            let data = try Data(contentsOf: fileURL)
-            let decodedData = try JSONDecoder().decode([String: [String: [Exercise]]].self, from: data)
-            for (_, muscleGroup) in decodedData {
-                for (category, exercises) in muscleGroup {
-                    self.exercises[category, default: []].append(contentsOf: exercises)
-                }
+        db.collection("exercises").getDocuments { [weak self] (snapshot, error) in
+            if let error = error {
+                print("Error fetching exercises: \(error.localizedDescription)")
+                return
             }
-            print("Exercises loaded from \(fileURL.path)")
-        } catch {
-            print("Failed to load exercises from file: \(error)")
+
+            guard let documents = snapshot?.documents else {
+                print("No exercises found")
+                return
+            }
+
+            for document in documents {
+                let data = document.data()
+                if let name = data["name"] as? String,
+                   let type = data["type"] as? String,
+                   let muscle = data["muscle"] as? String,
+                   let equipment = data["equipment"] as? String,
+                   let difficulty = data["difficulty"] as? String,
+                   let instructions = data["instructions"] as? String {
+                    
+                    let exercise = Exercise(name: name, type: type, muscle: muscle, equipment: equipment, difficulty: difficulty, instructions: instructions)
+                    if let categoryKey = self?.categories[muscle] {
+                        self?.exercises[categoryKey, default: []].append(exercise)
+                    }                }
+            }
+
+            print("Exercises loaded from Firestore")
         }
     }
     
-//    func fetchExercises(muscleGroup: String) {
-//        let muscle = muscleGroup.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-//        let url = URL(string: "https://api.api-ninjas.com/v1/exercises?muscle="+muscle!)!
-//        var request = URLRequest(url: url)
-//        request.setValue(ProgramViewModel.apiKey, forHTTPHeaderField: "X-Api-Key")
-//        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
-//                    guard let data = data, error == nil else {
-//                        print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
-//                        return
-//                    }
-//                    do {
-//                        let decodedResponse = try JSONDecoder().decode([Exercise].self, from: data)
-//                        DispatchQueue.main.async {
-//                            if let categoryKey = self?.categories[muscleGroup] {
-//                                self?.exercises[muscleGroup, default: [:]][categoryKey] = decodedResponse
-//                                self?.saveExercises() // Save to file after fetching
-//                            }
-//                        }
-//                    } catch {
-//                        print("Failed to decode JSON: \(error)")
-//                    }
-//                }
-//                task.resume()
-//    }
+    // Fetches exercises from workout API
+    func fetchExercises(muscleGroup: String) {
+        let muscle = muscleGroup.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let url = URL(string: "https://api.api-ninjas.com/v1/exercises?muscle="+muscle!)!
+        var request = URLRequest(url: url)
+        request.setValue(ProgramViewModel.apiKey, forHTTPHeaderField: "X-Api-Key")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                if let exercises = try? JSONDecoder().decode([Exercise].self, from: data) {
+                    self.saveExercisesToFirestore(muscleGroup: muscleGroup, exercises: exercises)
+                } else {
+                    print("Failed to decode JSON")
+                }
+            }.resume()
+    }
     
-    // Function to save exercises to a JSON file
-//    func saveExercises() {
-//        let fileURL = getDocumentsDirectory().appendingPathComponent("workouts.json")
-//
-//        do {
-//            let data = try JSONEncoder().encode(exercises)
-//            try data.write(to: fileURL)
-//            print("Exercises saved to \(fileURL.path)")
-//        } catch {
-//            print("Failed to save exercises to file: \(error)")
-//        }
-//    }
-//    
-//    private func getProjectDirectory() -> URL {
-//        let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-//        return currentDirectoryURL
-//    }
+    func saveExercisesToFirestore(muscleGroup: String, exercises: [Exercise]) {
+        let db = Firestore.firestore()
+        
+        // Convert exercises to a dictionary array for Firestore
+        for exercise in exercises {
+            let exerciseData: [String: Any] = [
+                "name": exercise.name,
+                "type": exercise.type,
+                "muscle": exercise.muscle,
+                "equipment": exercise.equipment,
+                "difficulty": exercise.difficulty,
+                "instructions": exercise.instructions
+            ]
+            
+            let documentId = UUID().uuidString
+            db.collection("exercises").document(documentId).setData(exerciseData) { error in
+                if let error = error {
+                    print("Error saving exercise \(exercise.name) to Firestore: \(error.localizedDescription)")
+                } else {
+                    print("Exercise \(exercise.name) successfully saved to Firestore")
+                }
+            }
+        }
+ 
+    }
 }
 
 
